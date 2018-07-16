@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.paymentsystems.activities.DriverLicenseActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="198dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="55dp"
+        android:background="@drawable/picture_background"
+        android:paddingBottom="100dp"
+        app:srcCompat="@mipmap/driver_lic" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="28dp"
+        android:paddingLeft="10dp"
+        android:text="Введите номер водительского удостоверения"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/dlET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="41dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:hint="50 АА 101101"
+        android:inputType="textCapCharacters"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/driverLicenseButton"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/dlET"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="29dp"
+        android:background="@color/colorButtons"
+        android:text="ДАЛЕЕ"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/skipDriverLicense"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/driverLicenseButton"
+        android:layout_marginEnd="39dp"
+        android:layout_toStartOf="@+id/driverLicenseButton"
+        android:background="@android:color/transparent"
+        android:text="ПРОПУСТИТь"
+        android:textColor="#90CAF9" />
+</RelativeLayout>

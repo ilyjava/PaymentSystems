@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.paymentsystems.activities.StsActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="198dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/picture_background"
+        android:paddingBottom="100dp"
+        app:srcCompat="@drawable/auto_pass"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:text="Введите номер свидетельства о \nрегистрации ТС"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/stsET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginTop="42dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:hint="50 AA 101101"
+        android:inputType="textCapCharacters"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/stsButton"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/stsET"
+        android:layout_marginEnd="17dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorButtons"
+        android:text="ДАЛЕЕ"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/skipSts"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/stsButton"
+        android:layout_marginEnd="39dp"
+        android:layout_toStartOf="@+id/stsButton"
+        android:background="@android:color/transparent"
+        android:text="ПРОПУСТИТь"
+        android:textColor="#90CAF9" />
+</RelativeLayout>

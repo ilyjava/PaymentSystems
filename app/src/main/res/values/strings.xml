@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PaymentSystems</string>
+    <string name="StartText">Проверьте штрафы  в официальных источниках</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pushup">Получайте  \npush-уведомления \nо новых штрафах</string>
+    <string name="penalty">Оплачивайте штрафы через приложение</string>
+    <string name="discount">Скидка 50%</string>
+    <string name="bill">Получайте квитанцию, как в банке</string>
+</resources>
