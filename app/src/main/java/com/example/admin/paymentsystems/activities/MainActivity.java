@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.admin.paymentsystems.R;
+import com.example.admin.paymentsystems.model.CarData;
 
 public class MainActivity extends AppCompatActivity {
+
+    private CarData mCar;
 
     private TextView mCarNumberTextView;
     private TextView mStsTextView;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mCar = new CarData();
 
         mCarNumberTextView = findViewById(R.id.carNumberTextView);
         mStsTextView = findViewById(R.id.stsTextView);
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(startIntent);
         } else if ((savedText.length()!= 0  || savedText2.length() != 0 || savedText3.length() != 0)) {
-            mCarNumberTextView.setText(savedText);
+            mCarNumberTextView.setText(mCar.getmCarNumber());
             mStsTextView.setText(savedText2);
             mDriverLicenseTextView.setText(savedText3);
         }

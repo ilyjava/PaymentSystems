@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.admin.paymentsystems.R;
+import com.example.admin.paymentsystems.model.CarData;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CarNumberActivity extends AppCompatActivity {
+
+    private CarData mCar;
 
     private Button mCarNumberButton;
     private Button mSkipButton;
@@ -30,6 +33,8 @@ public class CarNumberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_number);
+
+        mCar = new CarData();
 
         mCarNumberEditText = findViewById(R.id.carET);
 
@@ -46,10 +51,12 @@ public class CarNumberActivity extends AppCompatActivity {
         mCarNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCar.setmCarNumber(mCarNumberEditText.getText().toString());
                 Intent sts_number = new Intent(CarNumberActivity.this, StsActivity.class);
                 startActivity(sts_number);
 
-                saveText();
+
+                //saveText();
 
             }
         });
@@ -93,12 +100,12 @@ public class CarNumberActivity extends AppCompatActivity {
         }
 
 
-    public void saveText() {
+   /* public void saveText() {
         sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(CAR_NUMBER_SAVED_TEXT, mCarNumberEditText.getText().toString());
         ed.commit();
-    }
+    }*/
     public void customDialog(String message){
         final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
         builderSingle.setMessage(message);
@@ -118,10 +125,10 @@ public class CarNumberActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which){
                         Intent nextIntent = new Intent(CarNumberActivity.this, StsActivity.class);
                         startActivity(nextIntent);
-                        sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
+                        /*sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
                         SharedPreferences.Editor ed = sPref.edit();
                         ed.putString(CAR_NUMBER_SAVED_TEXT, "Пользователь не ввел данные");
-                        ed.commit();
+                        ed.commit();*/
                     }
                 });
         builderSingle.show();
