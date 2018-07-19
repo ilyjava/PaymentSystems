@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.admin.paymentsystems.R;
-import com.example.admin.paymentsystems.model.CarData;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
