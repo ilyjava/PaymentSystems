@@ -2,7 +2,6 @@ package com.example.admin.paymentsystems.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -17,24 +16,20 @@ import com.example.admin.paymentsystems.model.CarData;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CarNumberActivity extends AppCompatActivity {
+import static com.example.admin.paymentsystems.model.CarData.getNotEntered;
 
-    private CarData mCar;
+public class CarNumberActivity extends AppCompatActivity {
 
     private Button mCarNumberButton;
     private Button mSkipButton;
 
     private EditText mCarNumberEditText;
 
-    final String CAR_NUMBER_SAVED_TEXT = "car_number";
 
-    SharedPreferences sPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_number);
-
-        mCar = new CarData();
 
         mCarNumberEditText = findViewById(R.id.carET);
 
@@ -44,20 +39,15 @@ public class CarNumberActivity extends AppCompatActivity {
         mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                customDialog("Если вы не введете регистрационный номер ТС, то вы не сможете следить за штрафами, выписанными на автомобиль");
+                customDialog(getString(R.string.carNumberMessage));
             }
         });
 
         mCarNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCar.setmCarNumber(mCarNumberEditText.getText().toString());
-                Intent sts_number = new Intent(CarNumberActivity.this, StsActivity.class);
-                startActivity(sts_number);
-
-
-                //saveText();
-
+                CarData.getInstance().setmCarNumber(mCarNumberEditText.getText().toString());
+                startActivity(new Intent(CarNumberActivity.this, StsActivity.class));
             }
         });
         mCarNumberEditText.addTextChangedListener(new TextWatcher() {
@@ -86,7 +76,7 @@ public class CarNumberActivity extends AppCompatActivity {
                 if (mCarNumberEditText.getText().length()<8){
                     mCarNumberButton.setEnabled(false);
                 }
-                else if (mCarNumberEditText.getText().length()>=8){
+                else {
                     mCarNumberButton.setEnabled(true);
                 }
 
@@ -95,23 +85,16 @@ public class CarNumberActivity extends AppCompatActivity {
 
     }
     private void showError() {
-            mCarNumberEditText.setError("Неверный номерной знак");
+            mCarNumberEditText.setError(getString(R.string.invalidNumber));
             mCarNumberButton.setEnabled(false);
         }
 
-
-   /* public void saveText() {
-        sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(CAR_NUMBER_SAVED_TEXT, mCarNumberEditText.getText().toString());
-        ed.commit();
-    }*/
     public void customDialog(String message){
         final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
         builderSingle.setMessage(message);
 
         builderSingle.setNegativeButton(
-                "ВВЕСТИ НОМЕР",
+                R.string.enterNumber,
                 new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
@@ -119,16 +102,12 @@ public class CarNumberActivity extends AppCompatActivity {
                     }
                 });
         builderSingle.setPositiveButton(
-                "ПРОПУСТИТЬ",
+                R.string.skipNumber,
                 new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
-                        Intent nextIntent = new Intent(CarNumberActivity.this, StsActivity.class);
-                        startActivity(nextIntent);
-                        /*sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
-                        ed.putString(CAR_NUMBER_SAVED_TEXT, "Пользователь не ввел данные");
-                        ed.commit();*/
+                        CarData.getInstance().setmCarNumber(getNotEntered());
+                        startActivity(new Intent(CarNumberActivity.this, StsActivity.class));
                     }
                 });
         builderSingle.show();

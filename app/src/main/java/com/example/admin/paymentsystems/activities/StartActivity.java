@@ -22,9 +22,9 @@ public class StartActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent car_number = new Intent(StartActivity.this, CarNumberActivity.class);
-                car_number.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(car_number);
+                startActivity(new Intent(StartActivity.this, CarNumberActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
             }
         });
     }

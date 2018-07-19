@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.admin.paymentsystems.R;
+import com.example.admin.paymentsystems.model.CarData;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.example.admin.paymentsystems.model.CarData.getNotEntered;
 
 public class DriverLicenseActivity extends AppCompatActivity {
 
@@ -23,10 +26,6 @@ public class DriverLicenseActivity extends AppCompatActivity {
     private Button mSkipButton;
 
     private EditText mDriverLicenseEditText;
-
-    final String DRIVER_LICENSE_SAVED_TEXT = "dl_number";
-
-    SharedPreferences sPref;
 
     private boolean isUsed = false;
 
@@ -52,10 +51,9 @@ public class DriverLicenseActivity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
                  if (isFirstStart) {
-                     Intent i = new Intent(DriverLicenseActivity.this, OnboardingActivity.class);
-                     startActivity(i);
-
-                     saveText();
+                     CarData.getInstance().setmDriverLicenseNumber(mDriverLicenseEditText.getText().toString());
+                     CarData.getInstance().setPassedWizard(true);
+                     startActivity(new Intent(DriverLicenseActivity.this, OnboardingActivity.class));
 
                      SharedPreferences.Editor e = getPrefs.edit();
                      e.putBoolean("firstStart", false);
@@ -69,7 +67,7 @@ public class DriverLicenseActivity extends AppCompatActivity {
         mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                customDialog("Если вы не введете номер водительского удостоверения, то вы не сможете следить за штрафами, выписанными на автомобиль");
+                customDialog(getString(R.string.driverLicenseMessage));
             }
         });
 
@@ -88,14 +86,14 @@ public class DriverLicenseActivity extends AppCompatActivity {
                 } else {
                     mDriverLicenseButton.setEnabled(true);
                 }
-                if (e.length() == 10 && isUsed != true) {
+                if (e.length() == 10 && !isUsed) {
                     StringBuilder stringBuilder = new StringBuilder(e);
                     stringBuilder.insert(2, " ");
                     stringBuilder.insert(5, " ");
                     mDriverLicenseEditText.setText(stringBuilder);
                     mDriverLicenseEditText.setSelection(e.length() + 2);
                     isUsed = true;
-                }else if (e.length() == 10 && isUsed == true){
+                }else if (e.length() == 10 && isUsed){
                     Pattern p = Pattern.compile("^[0-9]{2}[0-9|А-Я]{2}[0-9]{6}$");
                     Matcher m = p.matcher(e.toString());
                     if (!m.matches()) {
@@ -122,15 +120,8 @@ public class DriverLicenseActivity extends AppCompatActivity {
 
     }
     private void showError() {
-            mDriverLicenseEditText.setError("Неверный номер документа");
+            mDriverLicenseEditText.setError(getString(R.string.invalidNumber));
             mDriverLicenseButton.setEnabled(false);
-    }
-
-    public void saveText() {
-        sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(DRIVER_LICENSE_SAVED_TEXT, mDriverLicenseEditText.getText().toString());
-        ed.commit();
     }
 
     public void customDialog(String message){
@@ -138,7 +129,7 @@ public class DriverLicenseActivity extends AppCompatActivity {
         builderSingle.setMessage(message);
 
         builderSingle.setNegativeButton(
-                "ВВЕСТИ НОМЕР",
+                R.string.enterNumber,
                 new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
@@ -146,21 +137,19 @@ public class DriverLicenseActivity extends AppCompatActivity {
                     }
                 });
         builderSingle.setPositiveButton(
-                "ПРОПУСТИТЬ",
+                R.string.skipNumber,
                 new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
-                        Intent nextIntent = new Intent(DriverLicenseActivity.this, OnboardingActivity.class);
-                        nextIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(nextIntent);
-                        sPref = getSharedPreferences("MYPREFS", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
-                        ed.putString(DRIVER_LICENSE_SAVED_TEXT, "Пользователь не ввел данные");
-                        ed.commit();
+                        CarData.getInstance().setmDriverLicenseNumber(getNotEntered());
+                        CarData.getInstance().setPassedWizard(true);
+                        startActivity(new Intent(DriverLicenseActivity.this, OnboardingActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     }
                 });
         builderSingle.show();
     }
+
 
 }
 

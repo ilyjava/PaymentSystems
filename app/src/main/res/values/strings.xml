@@ -8,4 +8,10 @@
     <string name="penalty">Оплачивайте штрафы через приложение</string>
     <string name="discount">Скидка 50%</string>
     <string name="bill">Получайте квитанцию, как в банке</string>
+    <string name="driverLicenseMessage">Если вы не введете номер водительского удостоверения, то вы не сможете следить за штрафами, выписанными на автомобиль</string>
+    <string name="carNumberMessage">Если вы не введете регистрационный номер ТС, то вы не сможете следить за штрафами, выписанными на автомобиль</string>
+    <string name="invalidNumber">Неверный номерной знак</string>
+    <string name="enterNumber">ВВЕСТИ НОМЕР</string>
+    <string name="skipNumber">ПРОПУСТИТЬ</string>
+    <string name="stsMessage">Если вы не введете номер свидетельства ТС, то вы не сможете следить за штрафами, выписанными на автомобиль</string>
 </resources>
